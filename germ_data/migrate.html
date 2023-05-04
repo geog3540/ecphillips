@@ -125,7 +125,7 @@
 	var legendX = 0.84, legendY = 0.5
 
 	// id attribute and the name attribute to be used in the tooltip
-	var idAttribute = '+schluessel', nameAttribute = 'Reigon ID';
+	var idAttribute = 'schluessel', nameAttribute = 'regionalei';
 
 	// Find the abbreviations of color names from https://colorbrewer2.org/
 	var colors =  colorbrewer.YlOrBr;
@@ -250,16 +250,16 @@
 				d3.select(d.btn).on('click', function() {
 					d3.selectAll('.btn').classed('active', false);
 					d3.select(this).classed('active', true);
-					var buttonid = d3.select(this).node().id;
-					if(buttonid == "ckmButton"){
-						$(".container").fadeOut(200);
-						functionAlert("Maps cannot be compared visually when natural breaks classification is selected. " +
-					  "Because natural breaks focuses on the recise distribution of each attribute along the number line.");
-					}else if(buttonid == "eqIntButton"){
-						$(".container").fadeOut(200);
-						functionAlert("When equal interval classification is selected, all maps should be"
-						+ " in the same scale (e.g., percentage) and have the same range (min-max values) to be comparable.");
-					}
+					// var buttonid = d3.select(this).node().id;
+					// if(buttonid == "ckmButton"){
+					// 	$(".container").fadeOut(200);
+					// 	functionAlert("Maps cannot be compared visually when natural breaks classification is selected. " +
+					//   "Because natural breaks focuses on the recise distribution of each attribute along the number line.");
+					// }else if(buttonid == "eqIntButton"){
+					// 	$(".container").fadeOut(200);
+					// 	functionAlert("When equal interval classification is selected, all maps should be"
+					// 	+ " in the same scale (e.g., percentage) and have the same range (min-max values) to be comparable.");
+					// }
 
 					current_scale = d.scale;
 					rescale(polygons);
@@ -268,6 +268,8 @@
 			d3.select('#classDropdown').on('input', function() {
 				rescale(polygons);
 			});
+			rescale(polygons);
+
 
 			// For each input attribute make a map and a histogram
 			charts.forEach(function(d) {
@@ -276,7 +278,7 @@
 
 				var hist_var = polygons.features.filter(function(e) { return +e.properties[dependent]; })
 				.map(function(e) { return +e.properties[dependent]; });
-				setScales(hist_var);
+				setHistogramScales(hist_var);
 
 				// set histogram
 				var currentBins = bins.domain(linear_scale.domain())(hist_var);
@@ -350,7 +352,9 @@
 						.attr("d", proj)
 						.style('fill', function(c) {
 							return current_scale(+c.properties[d.var]);
-						});
+						})
+						.style("stroke", "#636060")
+			      .style("stroke-width", 0.3);
 
 						holdLegend.labelFormat(d.form);
 						// add the legend
@@ -368,6 +372,7 @@
 						// .attr("transform", "translate(" + margin.left + "," + margin.top + ") rotate("+ 0 +")");
 
 					}); // end for each
+					rescale(polygons);
 				});
 
 				function recalculateAttribute(attribute, multiplyby, divideby) {
@@ -477,6 +482,10 @@
 
 					var naturalbreaks = ss.ckmeans(data, color_scale.length).map(v => v.pop())
 					jenks_scale.domain(naturalbreaks).range(color_scale);
+				}
+
+				function setHistogramScales(data){
+					var max = d3.max(data), min = d3.min(data);
 					linear_scale.domain([min, max]).range(color_scale);
 					hist_scale.domain([min, max]);			// set the histogram up dynamically
 				}
@@ -489,13 +498,19 @@
 				}
 
 				function rescale(data) {
+
+					allVariables = [];
 					// function to restyle all of the maps
 					charts.forEach(function(d) {
 						var hist_var = data.features.filter(function(e) { return +e.properties[d.var]; })
 						.map(function(e) { return +e.properties[d.var]; });
 
 						// Set scale for each chart (diff vars)
-						setScales(hist_var);
+						//TODO: change here
+						//setScales(hist_var);
+						setHistogramScales(hist_var);
+						allVariables = allVariables.concat(hist_var);
+
 						// map polygons
 						var map = d3.select(d.map).selectAll('.polygons')
 						.transition(250)
@@ -517,6 +532,9 @@
 
 						d3.select(d.map).select('.legendQuant').call(holdLegend.scale(current_scale));
 					});
+
+					// add all variables together to make the legend.
+					setScales(allVariables);
 				} // end rescale, apply to buttons
 
 				function functionAlert(msg, myYes) {
@@ -533,3 +551,5 @@
 				<!-- javascript -->
 
 			</body>
+
+	</html>
