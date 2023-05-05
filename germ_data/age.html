@@ -51,7 +51,7 @@
 	<div class="container">
 		<div class="content">
 			<div class="row">
-					<h1>Inter-Country Net Migrations: Germnay</h1>
+					<h1>German Age Distributions</h1>
 			</div>
 			<hr />
 			<div class="row">
@@ -80,12 +80,12 @@
 			<br />
 			<div class="row">
 				<div class="col-sm-6">
-					<span><p><h3 class='mapTitle'>2019</h3>Net Migrations Males 18-29 years old.</p></span>
+					<span><p><h3 class='mapTitle'>% of Populaiton Between Ages 0-17</h3>2021</p></span>
 					<div id="divMap1"></div>
 					<div id="divHist1"></div>
 				</div>
 				<div class="col-sm-6">
-					<h3 class='mapTitle'>2019</h3><p>Net Migrations Females 18-29 years old.</p>
+					<h3 class='mapTitle'>% of Populaton Age 65+</h3><p>2021</p>
 					<div id="divMap2"></div>
 					<div id="divHist2"></div>
 				</div>
@@ -93,12 +93,12 @@
 
 			<div class="row">
 				<div class="col-sm-6">
-					<h3 class='mapTitle'>2021</h3><p>Net Migrations Males 18-29 years old.</p>
+					<h3 class='mapTitle'>% of Populaiton Between Ages 0-17 </h3><p>2010</p>
 					<div id="divMap3"></div>
 					<div id="divHist3"></div>
 				</div>
 				<div class="col-sm-6">
-					<h3 class='mapTitle'>2021</h3><p>Net Migrations Males 18-29 years old.</p>
+					<h3 class='mapTitle'>% of Populaton Age 65+</h3><p>2010</p>
 					<div id="divMap4"></div>
 					<div id="divHist4"></div>
 				</div>
@@ -114,7 +114,7 @@
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////
 	// TODO: Change the variables below to customize the small multiples interface for your data
-	var polygonJSONFile = 'data/groups.geojson'
+	var polygonJSONFile = 'data/age.geojson'
 	// change the projection if needed *d3.geoAlbers()*
 	var projection = d3.geoTransverseMercator();
 	var widthheightRatio = 0.4;
@@ -128,7 +128,7 @@
 	var idAttribute = 'schluessel', nameAttribute = 'regionalei';
 
 	// Find the abbreviations of color names from https://colorbrewer2.org/
-	var colors =  colorbrewer.YlOrBr;
+	var colors =  colorbrewer.Blues;
 
 	// Chart/map attributes (variables) and formats based on the divs defined above
 	// For attribute 1 (the same for all others), see the description of the parameters below.
@@ -139,8 +139,8 @@
 	// https://observablehq.com/@d3/d3-format
 	var att1 = 'child21', att1alias = '% of populaiton between the ages 0-17 in 2021', att1format = '.0f',
 	att2 = 'senior21', att2alias =  '% of populaiton 65 or older in 2021', att2format = '.0f',
-	att3 = 'child10', att3alias = '% of populaiton between the ages 0-17 in 2011', att3format = '.0f',
-	att4 = 'senior10', att4alias = '% of populaiton 65 or older in 2011', att4format = '.0f';
+	att3 = 'child10', att3alias = '% of populaiton between the ages 0-17 in 2010', att3format = '.0f',
+	att4 = 'senior10', att4alias = '% of populaiton 65 or older in 2010', att4format = '.0f';
 
   // enter below all variables that should be normalized. If you would like to multiple the variables
 	// with a constant value enter them in multiplyBy array. If there is no need for multiplication,
