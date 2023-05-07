@@ -103,6 +103,19 @@
 					<div id="divHist4"></div>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-sm-6">
+					<h3 class='mapTitle'>% of Populaiton Between Ages 0-17 </h3><p>2000</p>
+					<div id="divMap5"></div>
+					<div id="divHist5"></div>
+				</div>
+				<div class="col-sm-6">
+					<h3 class='mapTitle'>% of Populaton Age 65+</h3><p>2000</p>
+					<div id="divMap6"></div>
+					<div id="divHist6"></div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="confirm">
@@ -140,8 +153,9 @@
 	var att1 = 'child21', att1alias = '% of populaiton between the ages 0-17 in 2021', att1format = '.0f',
 	att2 = 'senior21', att2alias =  '% of populaiton 65 or older in 2021', att2format = '.0f',
 	att3 = 'child10', att3alias = '% of populaiton between the ages 0-17 in 2010', att3format = '.0f',
-	att4 = 'senior10', att4alias = '% of populaiton 65 or older in 2010', att4format = '.0f';
-
+	att4 = 'senior10', att4alias = '% of populaiton 65 or older in 2010', att4format = '.0f',
+	att5 = 'child00', att5alias = '% of populaiton between the ages 0-17 in 2000', att5format = '.0f',
+	att6 = 'senior00', att6alias = '% of populaiton 65 or older in 2000', att6format = '.0f';
   // enter below all variables that should be normalized. If you would like to multiple the variables
 	// with a constant value enter them in multiplyBy array. If there is no need for multiplication,
 	// simply enter 1 for each value in multiplyBy.
@@ -193,7 +207,11 @@
 		{'map': '#divMap3', 'hist': '#divHist3', 'form': att3format,
 		'var': att3, 'ax': att3alias},
 		{'map': '#divMap4', 'hist': '#divHist4', 'form': att4format,
-		'var': att4, 'ax': att4alias}],
+		'var': att4, 'ax': att4alias},
+		 {'map': '#divMap5', 'hist': '#divHist5', 'form': att5format,
+		 'var': att5, 'ax': att5alias},
+		 {'map': '#divMap6', 'hist': '#divHist6', 'form': att6format,
+		 'var': att6, 'ax': att6alias}],
 		buttons = [
 			{'btn': '#quantileButton', 'scale': quantile_scale},
 			{'btn': '#eqIntButton', 'scale': equal_interval_scale},
